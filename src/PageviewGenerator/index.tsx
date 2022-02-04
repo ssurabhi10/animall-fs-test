@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { usePageviewGenerator } from './logic'
+import Store from '../store'
 
 export const PageviewGenerator: React.FC = () => {
   const { generate, pageview } = usePageviewGenerator()
+
+  useEffect(() => {
+    sendDataToStore(pageview)
+  }, [pageview])
+
+  const sendDataToStore = (pageview: any) => {
+    const store = new Store()
+    const data = store.setData([pageview])
+    console.log(data, 'store data')
+  }
 
   return (
     <>
